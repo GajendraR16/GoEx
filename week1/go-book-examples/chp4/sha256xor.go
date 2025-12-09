@@ -11,6 +11,12 @@ func main() {
 	fmt.Println(BitDiff(c1, c2))
 }
 
+/*Hamming distance
+Count how many bits are different between two hash
+Perform XOR on each index/byte
+Then Count the number of 1
+*/
+
 func BitDiff(hash1, hash2 [32]byte) int {
 	count := 0
 	for i := range len(hash1) {

@@ -1,6 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+	"strings"
+)
 
 type tree struct {
 	value       int
@@ -8,12 +12,12 @@ type tree struct {
 }
 
 // Sort sorts values in place
-func Sort(values []int) {
+func Sort(values []int) *tree {
 	var root *tree
 	for _, val := range values {
 		root = add(root, val)
 	}
-	appendValues(values[:0], root)
+	return root
 }
 
 // appendValues appends the elements of t to values in order
@@ -42,8 +46,21 @@ func add(t *tree, value int) *tree {
 	return t
 }
 
+func (t *tree) String() string {
+	var values []int
+
+	values = appendValues(values, t)
+	strValues := make([]string, len(values))
+	for i, v := range values {
+		strValues[i] = strconv.Itoa(v)
+	}
+
+	// Format as a comma-separated sequence
+	return strings.Join(strValues, ", ")
+}
+
 func main() {
 	values := []int{3, 1, 4, 2}
-	Sort(values)
-	fmt.Println("Final sorted values:", values)
+	root := Sort(values)
+	fmt.Println(root)
 }
